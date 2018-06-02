@@ -4,7 +4,7 @@ const app = getApp()
 const config = require('../../utils/config.js')
 Page({
   data: {
-    motto: 'Hello World',
+    schoolInfo: {},
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -42,6 +42,11 @@ Page({
         }
       })
     }
+
+    let beetoken = wx.getStorageSync('beetoken');
+    console.log(beetoken)
+
+
   },
   getUserInfo: function(e) {
     console.log(e)

@@ -5,14 +5,11 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    const config = require('utils/config.js')
-    const auth = require('utils/auth.js')
-    const url = config.config.host
-    const school_id = config.config.school_id
-    //let beetoken = wx.getStorageSync('beetoken') || []
     
+    //let beetoken = wx.getStorageSync('beetoken') || []
+    const auth = require('utils/auth.js')
     // 登录
-    auth.beeLogin('beetoken', url, school_id)
+    auth.beeLogin()
     
     // 获取用户信息
     wx.getSetting({

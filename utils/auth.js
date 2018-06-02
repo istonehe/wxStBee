@@ -1,10 +1,10 @@
 //auth.js
 
 // 登录模块
-// key 本地存储健值
-// url 请求url
-// school_id 学校或机构id
-function beeLogin(key, url, school_id, callback) {
+function beeLogin() {
+  const config = require('config.js')
+  const url = config.config.host
+  const school_id = config.config.school_id
   wx.login({
     success: res => {
       if (res.code) {
@@ -22,7 +22,7 @@ function beeLogin(key, url, school_id, callback) {
             if (res.data.code == 1) {
               console.log("登录成功")
               let token = res.data.token
-              wx.setStorageSync(key, token)
+              wx.setStorageSync('beetoken', token)
             } else {
               console.log('登录失败！' + res.data.message)
             }   
