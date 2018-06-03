@@ -1,16 +1,12 @@
 //app.js
 App({
-  onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    
+  onLaunch: function () {    
     //let beetoken = wx.getStorageSync('beetoken') || []
-    const auth = require('utils/auth.js')
+    //const auth = require('utils/auth.js')
     // 登录
-    auth.beeLogin()
+    //auth.beeLogin()
     
+    /*
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -31,6 +27,7 @@ App({
         }
       }
     })
+    */
 
   },
   globalData: {

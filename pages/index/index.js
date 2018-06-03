@@ -2,6 +2,10 @@
 //获取应用实例
 const app = getApp()
 const config = require('../../utils/config.js')
+const auth = require('../../utils/auth.js')
+const base64 = require('../../utils/base64.min.js').Base64
+const url = config.config.host
+const school_id = config.config.school_id
 Page({
   data: {
     schoolInfo: {},
@@ -16,6 +20,31 @@ Page({
     })
   },
   onLoad: function () {
+    let that = this
+
+    wx.request({
+      url: url + 'public/school/' + school_id,
+      header: {
+        // 'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
+      },
+      success: function (res) {
+        console.log(res.data)
+        if (res.data.code == 1) {
+          let school_name = res.data.school.name;
+          let course_name = res.data.course.course_name;
+          let schoolInfo = {
+            school_name: school_name,
+            course_name: course_name
+          }
+          that.setData({
+            schoolInfo: schoolInfo
+          })
+        }
+
+      }
+    })
+
+    /*
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -42,9 +71,14 @@ Page({
         }
       })
     }
-
+    */
+    
     let beetoken = wx.getStorageSync('beetoken');
-    console.log(beetoken)
+    if (!beetoken) {
+      auth.beeLogin()
+    } else {
+      
+    }
 
 
   },
