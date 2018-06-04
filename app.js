@@ -9,7 +9,7 @@ App({
       auth.beeLogin()
     }
 
-    /*
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -30,7 +30,7 @@ App({
         }
       }
     })
-    */
+
 
     
 

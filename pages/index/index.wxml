@@ -6,7 +6,13 @@
       <view class="course_name">{{schoolInfo.course_name}}</view>
     </view>
     <view class="userinfo">
-      <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+      <block wx:if="{{!hasUserInfo && canIUse}}">
+        <button id="login_btn" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="beelogin"></button>
+        <label for="login_btn">
+          <image class="userinfo-avatar"></image>
+        </label>
+        <text class="userinfo-nickname">获取头像昵称登录</text>
+      </block>
       <block wx:else>
         <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>

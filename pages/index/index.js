@@ -49,7 +49,7 @@ Page({
     })
 
     // 请求个人在校信息
-    /*
+
     wx.request({
       url: url + 'student/' + student_id,
       header: {
@@ -61,12 +61,14 @@ Page({
       success: res => {
         console.log(res.data)
         if (res.data.code == 4) {
-          auth.beeLogin(that.onLoad) 
+          that.setData({
+            hasUserInfo: false
+          })
+        } else if (res.data.code == 1){
+          
         }
       }
     })
-    */
-
     
     if (app.globalData.userInfo) {
       this.setData({
@@ -101,6 +103,7 @@ Page({
   },
   getUserInfo: function(e) {
     console.log(e)
+    auth.beeLogin()
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   background:#70d25c;
+  padding-bottom: 40rpx;
 }
 
 .userinfo {
@@ -14,8 +15,8 @@
 }
 
 .userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
+  width: 156rpx;
+  height: 156rpx;
   margin: 20rpx;
   border-radius: 50%;
 }
@@ -27,13 +28,16 @@
 .school_name{
   font-size:38rpx;
   text-align: center;
+  color: #fff;
 }
 
 .course_name{
   font-size:34rpx;
   text-align: center;
+  padding: 20rpx 0;
+  color: #fff;
 }
 
-.usermotto {
-  margin-top: 200px;
+.beelogin{
+  display: none;
 }
