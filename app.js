@@ -1,11 +1,14 @@
 //app.js
 App({
   onLaunch: function () {    
-    //let beetoken = wx.getStorageSync('beetoken') || []
-    //const auth = require('utils/auth.js')
-    // 登录
-    //auth.beeLogin()
-    
+    let user_info = wx.getStorageSync('user_info') || []
+    let beetoken = user_info.token
+    let student_id = user_info.student_id
+    const auth = require('utils/auth.js')
+    if (!beetoken) {
+      auth.beeLogin()
+    }
+
     /*
     // 获取用户信息
     wx.getSetting({
@@ -28,6 +31,8 @@ App({
       }
     })
     */
+
+    
 
   },
   globalData: {

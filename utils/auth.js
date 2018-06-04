@@ -1,7 +1,7 @@
 //auth.js
 
 // 登录模块
-function beeLogin() {
+function beeLogin(callback) {
   const config = require('config.js')
   const url = config.config.host
   const school_id = config.config.school_id
@@ -21,8 +21,14 @@ function beeLogin() {
           success: function (res) {
             if (res.data.code == 1) {
               console.log("登录成功")
-              let token = res.data.token
-              wx.setStorageSync('beetoken', token)
+              let user_info = {
+                token: res.data.token,
+                student_id: res.data.student_id
+              }
+              wx.setStorageSync('user_info', user_info)
+              if (callback && typeof (callback) === "function") {
+                callback();
+              }
             } else {
               console.log('登录失败！' + res.data.message)
             }   

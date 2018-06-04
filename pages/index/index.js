@@ -6,6 +6,8 @@ const auth = require('../../utils/auth.js')
 const base64 = require('../../utils/base64.min.js').Base64
 const url = config.config.host
 const school_id = config.config.school_id
+
+
 Page({
   data: {
     schoolInfo: {},
@@ -22,11 +24,13 @@ Page({
   onLoad: function () {
     let that = this
 
+    let user_info = wx.getStorageSync('user_info') || []
+    let beetoken = user_info.token
+    let student_id = user_info.student_id
+    
+    // 请求学校信息
     wx.request({
       url: url + 'public/school/' + school_id,
-      header: {
-        // 'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
-      },
       success: function (res) {
         console.log(res.data)
         if (res.data.code == 1) {
@@ -44,7 +48,26 @@ Page({
       }
     })
 
+    // 请求个人在校信息
     /*
+    wx.request({
+      url: url + 'student/' + student_id,
+      header: {
+        'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
+      },
+      data: {
+        school_id: school_id
+      },
+      success: res => {
+        console.log(res.data)
+        if (res.data.code == 4) {
+          auth.beeLogin(that.onLoad) 
+        }
+      }
+    })
+    */
+
+    
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -71,14 +94,8 @@ Page({
         }
       })
     }
-    */
+
     
-    let beetoken = wx.getStorageSync('beetoken');
-    if (!beetoken) {
-      auth.beeLogin()
-    } else {
-      
-    }
 
 
   },
