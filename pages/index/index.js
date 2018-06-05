@@ -13,7 +13,9 @@ Page({
     schoolInfo: {},
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    real_times: 0,
+    asks_count: 0
   },
   //事件处理函数
   bindViewTap: function() {
@@ -49,7 +51,6 @@ Page({
     })
 
     // 请求个人在校信息
-
     wx.request({
       url: url + 'student/' + student_id,
       header: {
@@ -65,7 +66,10 @@ Page({
             hasUserInfo: false
           })
         } else if (res.data.code == 1){
-          
+          that.setData({
+            real_times: res.data.real_times,
+            asks_count: res.data.asks_count
+          })
         }
       }
     })
@@ -102,8 +106,9 @@ Page({
 
   },
   getUserInfo: function(e) {
+    let that = this;
     console.log(e)
-    auth.beeLogin()
+    auth.beeLogin(that.onLoad)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,

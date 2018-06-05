@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   background:#70d25c;
-  padding-bottom: 40rpx;
+  padding-bottom: 100rpx;
 }
 
 .userinfo {
@@ -19,10 +19,11 @@
   height: 156rpx;
   margin: 20rpx;
   border-radius: 50%;
+  display: block;
 }
 
 .userinfo-nickname {
-  color: #aaa;
+  color: #fff;
 }
 
 .school_name{
@@ -40,4 +41,53 @@
 
 .beelogin{
   display: none;
+}
+
+.asks_status{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding:40rpx 0;
+}
+
+.status_item{
+  display: flex;
+  width:130rpx;
+  flex-direction: column;
+  text-align: center;
+  margin:0 90rpx;
+  background: #65c652;
+  padding:30rpx;
+  border-radius: 20rpx;
+}
+
+.status_title{
+  font-size: 30rpx;
+  color:#caefc3;
+}
+
+.status_cont{
+  padding-top:20rpx;
+  font-size: 60rpx;
+  color: #fff;
+}
+
+.add_ask{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding:70rpx 0 0 0;
+}
+
+.ask_btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 30rpx;
+  width:180rpx;
+  height:180rpx;
+  border-radius: 50%;
+  background:#65c652;
+  color:#fff;
 }
