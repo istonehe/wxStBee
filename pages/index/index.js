@@ -101,14 +101,12 @@ Page({
       })
     }
 
-    
-
 
   },
   getUserInfo: function(e) {
     let that = this;
     console.log(e)
-    auth.beeLogin(that.onLoad)
+    //auth.beeLogin(that.onLoad)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
