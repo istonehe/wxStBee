@@ -115,13 +115,13 @@ Page({
           country: e.detail.userInfo.country,
           gender: e.detail.userInfo.gender,
           avatarUrl: e.detail.userInfo.avatarUrl,
-          encryptedData: e.dtail.encryptedData,
-          iv: e.dtail.iv
+          encryptedData: e.detail.encryptedData,
+          iv: e.detail.iv
         },
         success: function (res) {
           console.log(res.data)
           if (res.data.code == 1) {
-           
+
           }
 
         }
