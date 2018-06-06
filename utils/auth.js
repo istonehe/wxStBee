@@ -20,7 +20,7 @@ function beeLogin(callback) {
           },
           success: function (res) {
             if (res.data.code == 1) {
-              console.log("登录成功")
+              console.log("登录成功1")
               let user_info = {
                 token: res.data.token,
                 student_id: res.data.student_id
@@ -41,45 +41,56 @@ function beeLogin(callback) {
   })
 }
 
-function sessionAuth(key, url, school_id, callback){
-  try{
-    
-    // 看看本地库是否存在记录
-    let beetoken = wx.getStorageSync(key)
-    
-    // 如果存在
-    if (beetoken) {
-      // 先看看wx的session是否过期
-      wx.checkSession({
-        success: function(){
-          //没有过期，且在本生命周期一直有效
-          //检查自定义授权key是否有效
+//Promise封装登录模块
+
+function beeLoginPromise(){
+  var LoginPromise = new Promise((resolve, reject) => {
+    const config = require('config.js')
+    const url = config.config.host
+    const school_id = config.config.school_id
+
+    wx.login({
+      success: res => {
+        if (res.code) {
           wx.request({
-            url: '',
+            url: url + 'public/wxstlogin',
+            data: {
+              code: res.code,
+              school_id: school_id
+            },
+            method: 'POST',
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success: function (res) {
+              if (res.data.code == 1) {
+                console.log("登录成功")
+                let user_info = {
+                  token: res.data.token,
+                  student_id: res.data.student_id
+                }
+                wx.setStorageSync('user_info', user_info)
+                resolve(user_info)
+              } else {
+                console.log('登录失败！' + res.data.message)
+                reject(res.data.message);
+              }
+            }
           })
-
-        },
-        fail: function () {
-          // session_key 已经失效，需要重新执行登录流程
-          // wx.login() //重新登录
-          
+        } else {
+          console.log('登录失败！' + res.errMsg)
+          reject(res.errMsg);
         }
-      })
-
-    } else {
-
-    }
-
-
-  } catch(e){
-
-  }
-  
+      }
+    })
+  });
+  return LoginPromise;
 }
 
 
 module.exports = {
-  beeLogin: beeLogin
+  beeLogin: beeLogin,
+  beeLoginPromise: beeLoginPromise
 }
 
 

@@ -41,3 +41,19 @@
     <view class="ask_btn">立即提问</view>
   </view>
 </view>
+
+<!-- 登录授权过期提示 -->
+<block wx:if="{{auth_mask}}">
+<view class="mask_tip">
+  <view class="mask_bg">
+  </view>
+  <view class="tip_box">
+    <view class="tip_wrap">
+      <view class="tip_text">
+      登录授权已过期，请点击按钮重新授权
+      </view>
+      <view class="tip_btn" bindtap="goLogin">重新登录</view>
+    </view>
+  </view>
+</view>
+</block>

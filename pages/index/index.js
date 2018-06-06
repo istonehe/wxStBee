@@ -3,10 +3,10 @@
 const app = getApp()
 const config = require('../../utils/config.js')
 const auth = require('../../utils/auth.js')
+const requests = require('../../utils/requests.js')
 const base64 = require('../../utils/base64.min.js').Base64
 const url = config.config.host
 const school_id = config.config.school_id
-
 
 Page({
   data: {
@@ -15,7 +15,8 @@ Page({
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     real_times: 0,
-    asks_count: 0
+    asks_count: 0,
+    auth_mask: false
   },
   //事件处理函数
   bindViewTap: function() {
@@ -25,11 +26,9 @@ Page({
   },
   onLoad: function () {
     let that = this
-
     let user_info = wx.getStorageSync('user_info') || []
     let beetoken = user_info.token
     let student_id = user_info.student_id
-    
     // 请求学校信息
     wx.request({
       url: url + 'public/school/' + school_id,
@@ -50,40 +49,32 @@ Page({
       }
     })
 
-    // 请求个人在校信息
-    wx.request({
-      url: url + 'student/' + student_id,
-      header: {
-        'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
-      },
-      data: {
-        school_id: school_id
-      },
-      success: res => {
-        console.log(res.data)
-        if (res.data.code == 4) {
-          that.setData({
-            hasUserInfo: false
-          })
-        } else if (res.data.code == 1){
-          that.setData({
-            real_times: res.data.real_times,
-            asks_count: res.data.asks_count
-          })
-        }
-      }
-    })
+    if(!beetoken){
+      //无token 首次登录
+      auth.beeLoginPromise().then(function (value) {
+        requests.getStudentInfo(that)
+      }, function (error) {
+        wx.showToast({
+          title: '服务器开小差，请重试',
+          icon: 'none',
+          duration: 2000
+        })
+      });
+    } else if (beetoken){
+      //带token 再次运行
+      requests.getStudentInfo(that, beetoken, student_id)
+    }
     
     if (app.globalData.userInfo) {
-      this.setData({
+      that.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
-    } else if (this.data.canIUse){
+    } else if (that.data.canIUse) {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
-        this.setData({
+        that.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
@@ -93,24 +84,61 @@ Page({
       wx.getUserInfo({
         success: res => {
           app.globalData.userInfo = res.userInfo
-          this.setData({
+          that.setData({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
         }
       })
     }
-
-
+    
   },
   getUserInfo: function(e) {
     let that = this;
+    let user_info = wx.getStorageSync('user_info') || []
+    let student_id = user_info.student_id
     console.log(e)
-    //auth.beeLogin(that.onLoad)
     app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+    if (e.detail.userInfo){
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      })
+      //交换敏感数据
+      wx.request({
+        url: url + 'public/studentwxsecret/' + school_id + '/' + student_id,
+        method: 'PUT',
+        data:{
+          nickname: e.detail.userInfo.nickName,
+          city: e.detail.userInfo.city,
+          province: e.detail.userInfo.province,
+          country: e.detail.userInfo.country,
+          gender: e.detail.userInfo.gender,
+          avatarUrl: e.detail.userInfo.avatarUrl,
+          encryptedData: e.dtail.encryptedData,
+          iv: e.dtail.iv
+        },
+        success: function (res) {
+          console.log(res.data)
+          if (res.data.code == 1) {
+           
+          }
+
+        }
+      })
+
+    }
+    
+  },
+  goLogin: function(){
+    let that = this;
+    auth.beeLoginPromise().then(function (value) {
+      requests.getStudentInfo(that)
+    }, function (error) {
+
+    });
+    that.setData({
+      auth_mask: false
     })
   }
 })

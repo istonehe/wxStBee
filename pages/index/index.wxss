@@ -91,3 +91,56 @@
   background:#65c652;
   color:#fff;
 }
+
+/* mask 弹窗 */
+.mask_tip{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mask_bg{
+  background: #000;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.tip_box{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.tip_wrap{
+  width: 480rpx;
+  margin: 40% auto;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 60rpx 20rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tip_text{
+  padding:0 40rpx 30rpx 40rpx;
+  font-size:34rpx;
+  text-align: center;
+  color: #888;
+}
+
+.tip_btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 30rpx;
+  width:220rpx;
+  height:100rpx;
+  background:#65c652;
+  color:#fff;  
+}
