@@ -1,12 +1,12 @@
 {
   "pages":[
     "pages/ask/ask",
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/index/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#70d25c",
+    "navigationBarBackgroundColor": "#60b657",
     "navigationBarTitleText": "beeAnswer",
     "navigationBarTextStyle":"#fff"
   }

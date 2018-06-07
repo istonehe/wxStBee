@@ -142,6 +142,6 @@
   font-size: 30rpx;
   width:220rpx;
   height:100rpx;
-  background:#65c652;
+  background:#60b657;
   color:#fff;  
 }
