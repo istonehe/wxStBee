@@ -24,7 +24,7 @@
           剩余提问
         </view>
         <view class="status_cont">
-          {{real_times || 0}}
+          {{ ((real_times == -1) ? '∞' : real_times) || 0}}
         </view>
       </view>
       <view class="status_item my_asks">
@@ -38,7 +38,7 @@
     </view>
   </view>
   <view class="add_ask">
-    <view class="ask_btn">立即提问</view>
+    <view class="ask_btn" bindtap='goAsk'>立即提问</view>
   </view>
 </view>
 

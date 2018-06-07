@@ -30,6 +30,7 @@
   font-size:38rpx;
   text-align: center;
   color: #fff;
+  padding-top:30rpx;
 }
 
 .course_name{

@@ -1,0 +1,38 @@
+.textarea_wrap{
+  margin-top:30rpx;
+  border-bottom:1px solid #ddd;
+  padding-bottom:30rpx;
+  font-size:34rpx;
+}
+
+.textarea_cont{
+  height:260rpx;
+}
+
+.file_placeholder{
+  margin-top:30rpx;
+}
+
+.file_placeholder image{
+  width:130rpx;
+  height:130rpx;
+}
+
+.upfile_btn{
+  margin-top:30rpx;
+  width:280rpx;
+  height:100rpx;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  background: #65c652;
+  color: #fff;
+  font-size:34rpx;
+}
+
+.submit_btn{
+  width:300rpx;
+  height:300rpx;
+  background: #65c652;
+  border-radius:100% 100% 0 0;
+}

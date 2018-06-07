@@ -121,24 +121,53 @@ Page({
         success: function (res) {
           console.log(res.data)
           if (res.data.code == 1) {
-
+            console.log('数据正常获取')
+          } else {
+            wx.showToast({
+              title: '服务器开小差，请重试',
+              icon: 'none',
+              duration: 2000
+            })
           }
-
         }
       })
-
+    } else {
+      wx.showToast({
+        title: '允许授权可以获得更好的服务哦！',
+        icon: 'none',
+        duration: 2000
+      })
     }
-    
   },
   goLogin: function(){
     let that = this;
     auth.beeLoginPromise().then(function (value) {
       requests.getStudentInfo(that)
     }, function (error) {
-
+      wx.showToast({
+        title: error,
+        icon: 'none',
+        duration: 2000
+      })
     });
     that.setData({
       auth_mask: false
     })
+  },
+  goAsk: function () {
+    let that = this;
+    let real_times = that.data.real_times;
+    if (real_times > 0 || real_times == -1) {
+      console.log('yes')
+      wx.navigateTo({
+        url: '../ask/ask'
+      })
+    } else {
+      wx.showToast({
+        title: '提问次数已经用完，请联系老师！',
+        icon: 'none',
+        duration: 2000
+      })
+    }
   }
 })
