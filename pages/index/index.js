@@ -31,7 +31,7 @@ Page({
     let student_id = user_info.student_id
     // 请求学校信息
     wx.request({
-      url: url + 'public/school/' + school_id,
+      url: url + '/v1/public/school/' + school_id,
       success: function (res) {
         console.log(res.data)
         if (res.data.code == 1) {

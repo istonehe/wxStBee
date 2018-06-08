@@ -1,43 +1,44 @@
-.container{
-  background:#eee;
+.container {
+  background: #eee;
+  height: 100%;
+  justify-content: flex-start;
+}
+
+page {
+  height: 100%;
 }
 
 .textarea_box {
   box-sizing: border-box;
   padding: 30rpx 30rpx 0 30rpx;
   width: 100%;
-  height:130rpx;
+  height: 130rpx;
   background: #60b657;
   position: relative;
 }
 
 .textarea_wrap {
   box-sizing: border-box;
-  width:690rpx;
+  width: 690rpx;
   border-bottom: 1px solid #ddd;
   font-size: 34rpx;
-  background:#fff;
+  background: #fff;
   border-radius: 20rpx;
-  padding:30rpx;
+  padding: 30rpx;
   position: absolute;
 }
 
 .textarea_cont {
-  height: 260rpx;
+  width: 630rpx;
+  height: 460rpx;
+  color:#666;
 }
 
 .file_box {
   box-sizing: border-box;
   width: 100%;
-  margin-top:220rpx;
+  margin-top: 420rpx;
   padding: 30rpx;
-}
-
-.askimg{
-  width: 130rpx;
-  height: 130rpx;
-  margin-right:20rpx;
-  display: block;
 }
 
 .file_wrap {
@@ -47,8 +48,33 @@
   align-items: center;
   box-sizing: border-box;
   border-radius: 20rpx;
-  padding:30rpx;
+  padding: 30rpx;
   background: #fff;
+}
+
+.file_list{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.file_item{
+  position: relative;
+  padding-right:40rpx;
+}
+
+.askimg {
+  width: 130rpx;
+  height: 130rpx;
+  display: block;
+}
+
+.delete-btn{
+  position: absolute;
+  width:58rpx;
+  height:58rpx;
+  top:-20rpx;
+  left:96rpx;
 }
 
 .file_tip {
@@ -58,7 +84,7 @@
   font-size: 34rpx;
 }
 
-.voice_box{
+.voice_box {
   box-sizing: border-box;
   width: 100%;
   padding: 0 30rpx 30rpx 30rpx;
@@ -71,24 +97,84 @@
   align-items: center;
   box-sizing: border-box;
   border-radius: 20rpx;
-  padding:30rpx;
+  padding: 30rpx;
   background: #fff;
 }
 
-.voice_btn{
+.voice_btn {
   width: 640rpx;
   height: 100rpx;
   line-height: 100rpx;
   border-radius: 50rpx;
   text-align: center;
-  background: #60b657;
-  color: #fff;
+  border:1px solid #82d771;
+  background: #fff;
+  color: #60b657;
   font-size: 34rpx;
 }
 
+.voice_cont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 640rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  text-align: center;
+  border:1px solid #82d771;
+  background: #fff;
+  color: #60b657;
+  font-size: 34rpx;
+}
+
+.voice_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding:0 40rpx;
+}
+
+.voice_wave {
+  width: 150rpx;
+  height: 52rpx;
+  display: block;
+}
+
+.voice_time{
+  font-size: 34rpx;
+  padding: 0 20rpx;
+}
+
+.voice_delete {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width:80rpx;
+  height:80rpx;
+  border-radius: 50%;
+  background: #abe69f;
+  margin-right: 11rpx;
+}
+
+.voice_delete image{
+  width: 40rpx;
+  height: 40rpx;
+  display: block;
+}
+
 .submit_btn {
-  width: 300rpx;
-  height: 300rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color:#fff;
+  font-size: 34rpx;
+  width: 690rpx;
+  height: 100rpx;
   background: #60b657;
-  border-radius: 100% 100% 0 0;
+  border-radius:20rpx;
+  margin-top:30rpx;
 }
