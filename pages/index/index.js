@@ -106,7 +106,7 @@ Page({
       })
       //交换敏感数据
       wx.request({
-        url: url + 'public/studentwxsecret/' + school_id + '/' + student_id,
+        url: url + '/v1/public/studentwxsecret/' + school_id + '/' + student_id,
         method: 'PUT',
         data:{
           nickname: e.detail.userInfo.nickName,

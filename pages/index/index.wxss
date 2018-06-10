@@ -141,7 +141,7 @@
   text-align: center;
   font-size: 30rpx;
   width:220rpx;
-  height:100rpx;
+  height:90rpx;
   background:#60b657;
   color:#fff;  
 }

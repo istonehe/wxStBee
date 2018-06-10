@@ -19,7 +19,8 @@ page {
 
 .textarea_wrap {
   box-sizing: border-box;
-  width: 690rpx;
+  width:690rpx;
+  height: 520rpx;
   border-bottom: 1px solid #ddd;
   font-size: 34rpx;
   background: #fff;
@@ -31,7 +32,7 @@ page {
 .textarea_cont {
   width: 630rpx;
   height: 460rpx;
-  color:#666;
+  color: #666;
 }
 
 .file_box {
@@ -177,4 +178,93 @@ page {
   background: #60b657;
   border-radius:20rpx;
   margin-top:30rpx;
+}
+
+
+
+/* mask 弹窗 */
+.mask_tip{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mask_bg{
+  background: #000;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.tip_box{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.tip_wrap{
+  width: 480rpx;
+  margin: 40% auto;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 60rpx 20rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tip_text{
+  padding:0 40rpx 30rpx 40rpx;
+  font-size:34rpx;
+  text-align: center;
+  color: #888;
+}
+
+.tip_btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 30rpx;
+  width:220rpx;
+  height:90rpx;
+  background:#60b657;
+  color:#fff;  
+}
+
+.record_auth_btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.record_auth_btn button{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 30rpx;
+  width:180rpx;
+  height:90rpx;
+  background:#60b657;
+  color:#fff;  
+  margin:0 20rpx;
+}
+
+.is_recording{
+  position: absolute;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 20rpx;
+  margin: 200rpx 0 auto;
+}
+
+.is_recording image{
+  width:180rpx;
+  height:180rpx;
+  border-radius: 90rpx;
+  box-shadow: 0 0 80rpx 40rpx rgba(0, 0, 0, .1);
 }

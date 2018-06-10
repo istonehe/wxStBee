@@ -1,42 +1,81 @@
 <view class="container">
   <view class="textarea_box">
     <view class="textarea_wrap">
-      <textarea placeholder="请填写问题(最多200字)" maxlength="200" value="{{asktext}}" class="textarea_cont" bindinput="textInput"></textarea>
+      <textarea wx:if="{{!recording}}" placeholder="请填写问题(最多200字)" maxlength="200" value="{{asktext}}" class="textarea_cont" bindinput="textInput"></textarea>
     </view>
   </view>
   <view class="file_box">
     <view class="file_wrap">
       <view class="file_list">
-        <view class="file_item">
-          <image src="../../images/img-placeholder.png" class="askimg" background-size="cover"></image>
-          <image class="delete-btn" catchtap="deleteImg" src="../../images/delete-img.png"></image>
+        <view class="file_item" wx:for="{{askimgs}}" wx:key="askitem" wx:for-item="aimg" wx:for-index="idx">
+          <image src="{{url}}/{{aimg.url}}" bindtap="previewImgs" id="{{idx}}" class="askimg" background-size="cover"></image>
+          <image class="delete-btn" catch:tap="deleteImg" id="{{idx}}" src="../../images/delete-img.png"></image>
         </view>
-        <view class="file_item" bindtap="uploadImg" >
+        <view class="file_item" bind:tap="uploadImg" wx:if="{{askimgs.length < 3}}">
           <image src="../../images/img-placeholder.png" class="askimg" background-size="cover"></image>
         </view>
       </view>
-      <view class="file_tip">
+      <view class="file_tip" wx:if="{{askimgs.length == 0}}">
         拍照提问，最多3张
       </view>
     </view>
   </view>
   <view class="voice_box">
     <view class="voice_wrap">
-      <!-- view class="voice_btn">
+      <view class="voice_btn" wx:if="{{!recordfile}}" bind:touchstart="touchDown" bind:touchend="touchUp">
         按住语音提问
-      </view -->
-      <view class="voice_cont">
+      </view>
+      <view class="voice_cont" wx:if="{{recordfile}}" bind:tap="{{!recordplaying?'playRecordVoice':''}}">
         <view class="voice_info">
-          <image src="../../images/voice_wave_green.png" class="voice_wave" background-size="cover"></image>
-          <view class="voice_time">32''</view>
+          <image src="../../images/voice_wave_green.png" wx:if="{{!recordplaying}}" class="voice_wave" background-size="cover"></image>
+          <image src="../../images/voice_wave_green.gif" wx:if="{{recordplaying}}" class="voice_wave" background-size="cover"></image>
+          <view class="voice_time">{{voice_duration}}''</view>
         </view>
-        <view class="voice_delete">
+        <view class="voice_delete" catch:tap="deleteVoice">
           <image src="../../images/voice_delete.png" background-size="cover"></image>
         </view>
       </view>
     </view>
   </view>
-  <view class="submit_btn">
+  <view class="submit_btn" bind:tap="submitAsk">
     提交问题
   </view>
+  <!-- 录音中提示 -->
+  <view class="is_recording" wx:if="{{recording}}">
+    <image class="tip_img" src="../../images/mic.gif" mode="widthFix"></image>
+  </view>
 </view>
+
+<!-- 登录授权过期提示 -->
+<view class="mask_tip"  wx:if="{{auth_mask}}">
+  <view class="mask_bg">
+  </view>
+  <view class="tip_box">
+    <view class="tip_wrap">
+      <view class="tip_text">
+      登录授权已过期，请点击按钮重新授权
+      </view>
+      <view class="tip_btn" bind:tap="goLogin">重新登录</view>
+    </view>
+  </view>
+</view>
+
+<!-- 录音授权引导 -->
+<view class="mask_tip" wx:if="{{recordauth_mask}}">
+  <view class="mask_bg">
+  </view>
+  <view class="tip_box">
+    <view class="tip_wrap">
+      <view class="tip_text">
+      需要授权录音才可使用录音功能
+      </view>
+      <view class="record_auth_btn">
+        <button open-type="openSetting">前往设置</button>
+        <button bind:tap="closeRecordAuthMask">关闭</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
