@@ -1,0 +1,83 @@
+<view class="container">
+  <view class="ask_box">
+    <view class="ask_cont">
+      <view class="ask_text">由于明显的客户端错误（例如，格式错误的请求语法，太大的大小，无效的请求消息或欺骗性路由请求），服务器不能或不会处理该请求。</view>
+      <view class="ask_imgs">
+        <image src="../../images/img-placeholder.png"></image>
+        <image src="../../images/img-placeholder.png"></image>
+        <image src="../../images/img-placeholder.png"></image>
+      </view>
+      <view class="ask_voice">
+        <image src="../../images/voice_wave_green.png"></image>
+        <view class="voice_duration">30''</view>
+      </view>
+    </view>
+    <view class="ask_info">
+      <view class="ask_time">6月11日 15:20</view>
+      <view class="ask_status answered">已回答</view>
+    </view>
+  </view>
+  <view class="answer_box">
+    <view class="answer_none" wx:if="{{false}}">
+      老师正在火速赶来，请耐心等待！
+    </view>
+    <view class="answer_item">
+      <view class="answer_info">
+        <view class="answerer">
+          <image class="user_avatar" src="../../images/img-placeholder.png"></image>
+          <view class="user_name">
+             雯雯老师
+          </view>
+        </view>
+        <view class="answer_time">
+          6月11日 15:20
+        </view>
+      </view>
+      <view class="answer_cont">
+        <view class="ask_text">由于明显的客户端错误（例如，格式错误的请求语法，太大的大小，无效的请求消息或欺骗性路由请求），服务器不能或不会处理该请求。</view>
+        <view class="ask_imgs">
+          <image src="../../images/img-placeholder.png"></image>
+          <image src="../../images/img-placeholder.png"></image>
+          <image src="../../images/img-placeholder.png"></image>
+        </view>
+        <view class="ask_voice">
+          <image src="../../images/voice_wave_green.png"></image>
+          <view class="voice_duration">30''</view>
+        </view>
+      </view>
+    </view>
+    <view class="answer_item">
+      <view class="answer_info">
+        <view class="answerer">
+          <image class="user_avatar" src="../../images/img-placeholder.png"></image>
+          <view class="user_name">
+             雯雯老师
+          </view>
+        </view>
+        <view class="answer_time">
+          6月11日 15:20
+        </view>
+      </view>
+      <view class="answer_cont">
+        <view class="ask_text">由于明显的客户端错误（例如，格式错误的请求语法，太大的大小，无效的请求消息或欺骗性路由请求），服务器不能或不会处理该请求。</view>
+        <view class="ask_imgs">
+          <image src="../../images/img-placeholder.png"></image>
+          <image src="../../images/img-placeholder.png"></image>
+          <image src="../../images/img-placeholder.png"></image>
+        </view>
+        <view class="ask_voice">
+          <image src="../../images/voice_wave_green.png"></image>
+          <view class="voice_duration">30''</view>
+        </view>
+      </view>
+    </view>
+    <view class="answer_grate" wx:if="{{true}}">
+      <view class="not_understand">
+        <image src="../../images/feedback-no-border.png"></image>
+      </view>
+      <view class="yes_understand">
+        <image src="../../images/feedback-yes-border.png"></image>
+      </view>
+    </view>
+  </view>
+</view>

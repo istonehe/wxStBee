@@ -1,0 +1,145 @@
+.container {
+  justify-content: flex-start;
+  font-size: 34rpx;
+}
+
+page{
+  background: #f5f5f5;
+}
+
+.ask_box {
+  box-sizing: border-box;
+  width: 100%;
+  background: #fff;
+}
+
+.ask_cont {
+  box-sizing: border-box;
+  padding: 10px 30rpx 30rpx 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.ask_text {
+  margin-top: 30rpx;
+  color: #666;
+}
+
+.ask_imgs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 40rpx;
+}
+
+.ask_imgs image {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 20rpx;
+}
+
+.ask_voice {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 40rpx;
+  width: 510rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  border: 1px solid #60b657;
+  background: #fff;
+  color: #60b657;
+}
+
+.ask_voice image {
+  width: 150rpx;
+  height: 52rpx;
+  display: block;
+  margin: 40rpx;
+}
+
+.ask_info {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-top: 1rpx solid #eee;
+  border-bottom: 1rpx solid #ccc;
+}
+
+.ask_time {
+  color: #aaa;
+}
+
+.ask_status {
+  color: #ccc;
+}
+
+.answered {
+  color: #60b657;
+}
+
+.answer_box{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+  padding-bottom:20rpx;
+  width:100%;
+}
+
+.answer_none{
+  color:#aaa;
+  padding:80rpx 0 0 0;
+  text-align: center;
+}
+
+.answer_item{
+  box-sizing: border-box;
+  width:710rpx;
+  background:#fff;
+  margin-top:20rpx;
+  border-radius: 20rpx;
+}
+
+.answer_info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding:30rpx;
+  border-bottom:1px solid #eee;
+}
+
+.answerer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user_avatar{
+  width:100rpx;
+  height:100rpx;
+  border-radius: 50%;
+  margin-right:20rpx;
+}
+
+.user_name{
+  color:#666;
+}
+
+.answer_time{
+  color:#aaa;
+}
+
+.answer_cont{
+  padding:30rpx;
+}
+

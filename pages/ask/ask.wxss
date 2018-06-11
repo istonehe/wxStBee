@@ -108,7 +108,7 @@ page {
   line-height: 100rpx;
   border-radius: 50rpx;
   text-align: center;
-  border:1px solid #82d771;
+  border:1px solid #60b657;
   background: #fff;
   color: #60b657;
   font-size: 34rpx;
@@ -124,7 +124,7 @@ page {
   line-height: 100rpx;
   border-radius: 50rpx;
   text-align: center;
-  border:1px solid #82d771;
+  border:1px solid #60b657;
   background: #fff;
   color: #60b657;
   font-size: 34rpx;
@@ -157,7 +157,7 @@ page {
   width:80rpx;
   height:80rpx;
   border-radius: 50%;
-  background: #abe69f;
+  background: #60b657;
   margin-right: 11rpx;
 }
 
@@ -265,6 +265,7 @@ page {
 .is_recording image{
   width:180rpx;
   height:180rpx;
+  display: block;
   border-radius: 90rpx;
-  box-shadow: 0 0 80rpx 40rpx rgba(0, 0, 0, .1);
+  box-shadow: 0 0 20rpx 10rpx rgba(0, 0, 0, .1);
 }
