@@ -209,14 +209,13 @@ Page({
     let that = this;
     let ask_text = that.data.asktext;
     let voice_url = that.data.recordfile;
-    let voice_duration = voice_duration;
+    let voice_duration = that.data.voice_duration;
     let askimgs = that.data.askimgs;
     let img_list = [];
     for (let i = 0, n = askimgs.length; i < n; i++){
       img_list.push(askimgs[i].id)
     }
     let img_ids = img_list.toString()
-
     requests.submitAskPromise(that, ask_text, voice_url, voice_duration, img_ids).then(
       function(data){
         console.log(data)

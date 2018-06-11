@@ -47,7 +47,7 @@ function upLoadFilePromise(that, tempFilePath){
   let user_info = wx.getStorageSync('user_info') || [];
   let beetoken = user_info.token;
   let student_id = user_info.student_id;
-  var upLoadPromise = new Promise((resolve, reject) => {
+  let upLoadPromise = new Promise((resolve, reject) => {
     wx.uploadFile({
       url: url + '/v1/public/uploads', 
       filePath: tempFilePath,
@@ -93,7 +93,7 @@ function submitAskPromise(that, ask_text, voice_url, voice_duration, img_ids){
   let user_info = wx.getStorageSync('user_info') || [];
   let beetoken = user_info.token;
   let student_id = user_info.student_id;
-  var submitPromise = new Promise((resolve, reject) => {
+  let submitPromise = new Promise((resolve, reject) => {
     wx.request({
       url: url + '/v1/student/asks',
       method: 'POST',
@@ -131,10 +131,46 @@ function submitAskPromise(that, ask_text, voice_url, voice_duration, img_ids){
   return submitPromise;
 }
 
+// 获取问题详情
+function getAskDetailPromise(that, ask_id) {
+  let user_info = wx.getStorageSync('user_info') || [];
+  let beetoken = user_info.token;
+  let student_id = user_info.student_id;
+  let askDetailPromise = new Promise((resolve, reject) => {
+    wx.request({
+      url: url + '/v1/student/ask/' + ask_id,
+      header: {
+        'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
+      },
+      success: function(res){
+        let data = res.data;
+        console.log(data)
+        if (data.code == 4) {
+          that.setData({
+            auth_mask: true
+          });
+          reject();
+        } else if (data.code == 1) {
+          resolve(data);
+        } else {
+          wx.showToast({
+            title: data.message || '服务器开小差了',
+            icon: 'none',
+            duration: 2000
+          });
+          reject();
+        }
+      }
+    })
+  });
+  return askDetailPromise;
+}
+
 module.exports = {
   getStudentInfo: getStudentInfo,
   upLoadFilePromise: upLoadFilePromise,
-  submitAskPromise: submitAskPromise
+  submitAskPromise: submitAskPromise,
+  getAskDetailPromise: getAskDetailPromise
 }
 
 

@@ -1,11 +1,14 @@
 <view class="container">
-  <view class="ask_box">
+  <view class="pageloading" wx:if="{{pageloading}}">
+    <image src="../../images/page-loading.gif"></image>
+  </view>
+  <view class="ask_box" wx:if="{{!pageloading}}">
     <view class="ask_cont">
-      <view class="ask_text">由于明显的客户端错误（例如，格式错误的请求语法，太大的大小，无效的请求消息或欺骗性路由请求），服务器不能或不会处理该请求。</view>
-      <view class="ask_imgs">
-        <image src="../../images/img-placeholder.png"></image>
-        <image src="../../images/img-placeholder.png"></image>
-        <image src="../../images/img-placeholder.png"></image>
+      <view class="ask_text" wx:if="{{asktext}}">{{asktext}}</view>
+      <view class="ask_imgs" wx:if="{{askimgs}}">
+        <block wx:for="{{askimgs}}" wx:key="askimg" wx:for-item="imgurl" wx:for-index="idx">
+          <image src="{{url}}/{{imgurl}}" bind:tap="previewImgs" id="{{idx}}"></image>
+        </block>
       </view>
       <view class="ask_voice">
         <image src="../../images/voice_wave_green.png"></image>
@@ -14,42 +17,20 @@
     </view>
     <view class="ask_info">
       <view class="ask_time">6月11日 15:20</view>
-      <view class="ask_status answered">已回答</view>
+      <view class="status_cancel">
+        <view class="ask_status answered">已回答</view>
+        <view class="ask_cancel">删除</view>
+      </view>
     </view>
   </view>
-  <view class="answer_box">
+  <view class="answer_box" wx:if="{{!pageloading}}">
     <view class="answer_none" wx:if="{{false}}">
       老师正在火速赶来，请耐心等待！
     </view>
     <view class="answer_item">
       <view class="answer_info">
         <view class="answerer">
-          <image class="user_avatar" src="../../images/img-placeholder.png"></image>
-          <view class="user_name">
-             雯雯老师
-          </view>
-        </view>
-        <view class="answer_time">
-          6月11日 15:20
-        </view>
-      </view>
-      <view class="answer_cont">
-        <view class="ask_text">由于明显的客户端错误（例如，格式错误的请求语法，太大的大小，无效的请求消息或欺骗性路由请求），服务器不能或不会处理该请求。</view>
-        <view class="ask_imgs">
-          <image src="../../images/img-placeholder.png"></image>
-          <image src="../../images/img-placeholder.png"></image>
-          <image src="../../images/img-placeholder.png"></image>
-        </view>
-        <view class="ask_voice">
-          <image src="../../images/voice_wave_green.png"></image>
-          <view class="voice_duration">30''</view>
-        </view>
-      </view>
-    </view>
-    <view class="answer_item">
-      <view class="answer_info">
-        <view class="answerer">
-          <image class="user_avatar" src="../../images/img-placeholder.png"></image>
+          <image class="user_avatar" src="../../images/bee.png"></image>
           <view class="user_name">
              雯雯老师
           </view>
@@ -74,10 +55,26 @@
     <view class="answer_grate" wx:if="{{true}}">
       <view class="not_understand">
         <image src="../../images/feedback-no-border.png"></image>
+        <view>没听懂</view>
       </view>
       <view class="yes_understand">
         <image src="../../images/feedback-yes-border.png"></image>
+        <view>听懂了</view>
       </view>
+    </view>
+  </view>
+</view>
+
+<!-- 登录授权过期提示 -->
+<view class="mask_tip"  wx:if="{{auth_mask}}">
+  <view class="mask_bg">
+  </view>
+  <view class="tip_box">
+    <view class="tip_wrap">
+      <view class="tip_text">
+      登录授权已过期，请点击按钮重新授权
+      </view>
+      <view class="tip_btn" bind:tap="goLogin">重新登录</view>
     </view>
   </view>
 </view>
