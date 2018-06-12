@@ -10,20 +10,22 @@ Page({
     auth_mask: false,
     asktext: '',
     askimgs: [],
-    recordfile: '',
-    voice_duration: 0
+    askrecordfile: '',
+    askvoice_duration: 0,
+    be_answered: false,
   },
   onLoad: function(){
     let that = this;
-    requests.getAskDetailPromise(that, 5).then(
+    requests.getAskDetailPromise(that, 17).then(
       function(data){
         console.log(data)
         that.setData({
           pageloading: false,
           asktext: data.ask.ask_text,
           askimgs: data.ask.imgs,
-          recordfile: data.ask.voice_url,
-
+          askrecordfile: data.ask.voice_url,
+          askvoice_duration: data.ask.voice_duration,
+          be_answered: data.ask.be_answered
         })
       },
       function(data){
