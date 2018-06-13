@@ -11,12 +11,13 @@
         </block>
       </view>
       <view class="ask_voice" bind:tap="playVoice">
-        <image src="../../images/voice_wave_green.png"></image>
+        <image src="../../images/voice_wave_green.png" wx:if="{{!recordplaying}}" background-size="cover"></image>
+          <image src="../../images/voice_wave_green.gif" wx:if="{{recordplaying}}" background-size="cover"></image>
         <view class="voice_duration">{{askvoice_duration}}''</view>
       </view>
     </view>
     <view class="ask_info">
-      <view class="ask_time">6月11日 15:20</view>
+      <view class="ask_time">{{postedtime}}</view>
       <view class="status_cancel">
         <view class="ask_status answered" wx:if="{{be_answered}}">已回答</view>
         <view class="ask_status" wx:if="{{!be_answered}}">未回答</view>
