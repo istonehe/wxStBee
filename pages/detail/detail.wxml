@@ -11,9 +11,12 @@
         </block>
       </view>
       <view class="ask_voice" bind:tap="playVoice">
-        <image src="../../images/voice_wave_green.png" wx:if="{{!recordplaying}}" background-size="cover"></image>
-          <image src="../../images/voice_wave_green.gif" wx:if="{{recordplaying}}" background-size="cover"></image>
-        <view class="voice_duration">{{askvoice_duration}}''</view>
+        <view class="voice_cont">
+          <image class="wave_img" src="../../images/voice_wave_green.png" wx:if="{{!recordplaying}}" background-size="cover"></image>
+          <image class="wave_img" src="../../images/voice_wave_green.gif" wx:if="{{recordplaying}}" background-size="cover"></image>
+          <view class="voice_duration">{{askvoice_duration}}''</view>
+        </view>
+        <image class="play_ico" src="../../images/play.png" background-size="cover"></image>
       </view>
     </view>
     <view class="ask_info">
@@ -21,7 +24,7 @@
       <view class="status_cancel">
         <view class="ask_status answered" wx:if="{{be_answered}}">已回答</view>
         <view class="ask_status" wx:if="{{!be_answered}}">未回答</view>
-        <view class="ask_cancel" wx:if="{{!be_answered}}">删除</view>
+        <view class="ask_cancel" wx:if="{{!be_answered}}" bind:tap="deleteAsk">删除</view>
       </view>
     </view>
   </view>
@@ -49,8 +52,12 @@
           <image src="../../images/img-placeholder.png"></image>
         </view>
         <view class="ask_voice">
-          <image src="../../images/voice_wave_green.png"></image>
-          <view class="voice_duration">30''</view>
+          <view class="voice_cont">
+            <image class="wave_img" src="../../images/voice_wave_green.png" wx:if="{{!recordplaying}}" background-size="cover"></image>
+            <image class="wave_img" src="../../images/voice_wave_green.gif" wx:if="{{recordplaying}}" background-size="cover"></image>
+            <view class="voice_duration">{{askvoice_duration}}''</view>
+          </view>
+          <image class="play_ico" src="../../images/play.png" background-size="cover"></image>
         </view>
       </view>
     </view>

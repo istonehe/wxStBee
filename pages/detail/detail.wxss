@@ -53,7 +53,7 @@ page{
 .ask_voice {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin-top: 40rpx;
   width: 510rpx;
@@ -65,11 +65,25 @@ page{
   color: #60b657;
 }
 
-.ask_voice image {
+.voice_cont{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.wave_img {
   width: 150rpx;
   height: 52rpx;
   display: block;
-  margin: 40rpx;
+  margin: 0 40rpx;
+}
+
+.play_ico{
+  width: 30rpx;
+  height: 30rpx;
+  display: block;
+  margin-right:40rpx;
 }
 
 .ask_info {

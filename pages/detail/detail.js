@@ -2,6 +2,7 @@ const config = require('../../utils/config.js')
 const url = config.config.host
 const requests = require('../../utils/requests.js')
 const auth = require('../../utils/auth.js')
+const base64 = require('../../utils/base64.min.js').Base64;
 const moment = require('../../utils/moment-with-locales.js')
 moment.locale('zh-cn')
 
@@ -16,14 +17,22 @@ Page({
     askvoice_duration: 0,
     recordplaying: false,
     be_answered: false,
-    postedtime: ''
+    postedtime: '',
+    ask_id: 0,
+    answers: []
   },
   onLoad: function(){
     let that = this;
-    requests.getAskDetailPromise(that, 17).then(
+    let ask_id = 19
+    requests.getAskDetailPromise(that, ask_id).then(
       function(data){
         console.log(data)
-        let postedtime = moment(data.ask.timestamp).fromNow()
+        console.log(data.ask.timestamp)
+        let postedtime = moment(data.ask.timestamp).add(8, 'hours').fromNow();
+        
+        let answers = []
+        
+
         that.setData({
           pageloading: false,
           asktext: data.ask.ask_text,
@@ -31,7 +40,8 @@ Page({
           askrecordfile: url + '/' + data.ask.voice_url,
           askvoice_duration: data.ask.voice_duration,
           be_answered: data.ask.be_answered,
-          postedtime: postedtime
+          postedtime: postedtime,
+          ask_id: ask_id
         })
       },
       function(data){
@@ -68,6 +78,37 @@ Page({
       that.setData({
         recordplaying: false
       })
+    })
+  },
+  deleteAsk: function(){
+    let that = this;
+    let ask_id = that.data.ask_id;
+    let user_info = wx.getStorageSync('user_info') || [];
+    let beetoken = user_info.token;
+    let student_id = user_info.student_id;
+    wx.request({
+      url: url + '/' + 'v1/student/ask/' + ask_id,
+      method: 'DELETE',
+      header: {
+        'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
+      },
+      success: function(res){
+        let data = res.data;
+        console.log(data)
+        if (data.code == 4) {
+          that.setData({
+            auth_mask: true
+          });
+        } else if (res.statusCode == 204) {
+          console.log('删除成功,这里将来要指向来源界面，例如列表或发布界面')
+        } else {
+          wx.showToast({
+            title: data.message || '服务器开小差了',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      }
     })
   },
   goLogin: function () {
