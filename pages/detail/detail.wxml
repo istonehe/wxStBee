@@ -4,52 +4,58 @@
   </view>
   <view class="ask_box" wx:if="{{!pageloading}}">
     <view class="ask_cont">
-      <view class="ask_text" wx:if="{{asktext}}">{{asktext}}</view>
-      <view class="ask_imgs" wx:if="{{askimgs}}">
-        <block wx:for="{{askimgs}}" wx:key="askimg" wx:for-item="imgurl" wx:for-index="idx">
-          <image src="{{url}}/{{imgurl}}" bind:tap="previewImgs" id="{{idx}}"></image>
+      <view class="ask_text" wx:if="{{ask.ask_text}}">{{ask.ask_text}}</view>
+      <view class="ask_imgs" wx:if="{{ask.imgs}}">
+        <block wx:for="{{ask.imgs}}" wx:key="askimg" wx:for-item="imgurl" wx:for-index="idx">
+          <image src="{{url}}/{{imgurl}}" bind:tap="askPreviewImgs" id="{{idx}}"></image>
         </block>
       </view>
-      <view class="ask_voice" bind:tap="playVoice">
+      <view class="ask_voice" bind:tap="{{ask.recordplaying?'':'playVoice'}}" wx:if="{{ask.voice_url}}">
         <view class="voice_cont">
-          <image class="wave_img" src="../../images/voice_wave_green.png" wx:if="{{!recordplaying}}" background-size="cover"></image>
-          <image class="wave_img" src="../../images/voice_wave_green.gif" wx:if="{{recordplaying}}" background-size="cover"></image>
-          <view class="voice_duration">{{askvoice_duration}}''</view>
+          <image class="wave_img" src="../../images/voice_wave_green.png" wx:if="{{!ask.recordplaying}}" background-size="cover"></image>
+          <image class="wave_img" src="../../images/voice_wave_green.gif" wx:if="{{ask.recordplaying}}" background-size="cover"></image>
+          <view class="voice_duration">{{ask.voice_duration}}''</view>
         </view>
         <image class="play_ico" src="../../images/play.png" background-size="cover"></image>
       </view>
     </view>
     <view class="ask_info">
-      <view class="ask_time">{{postedtime}}</view>
+      <view class="ask_time">{{ask.postedtime}}</view>
       <view class="status_cancel">
-        <view class="ask_status answered" wx:if="{{be_answered}}">已回答</view>
-        <view class="ask_status" wx:if="{{!be_answered}}">未回答</view>
-        <view class="ask_cancel" wx:if="{{!be_answered}}" bind:tap="deleteAsk">删除</view>
+        <view class="ask_status answered" wx:if="{{ask.be_answered}}">已回答</view>
+        <view class="ask_status" wx:if="{{!ask.be_answered}}">未回答</view>
+        <view class="ask_cancel" wx:if="{{!ask.be_answered}}" bind:tap="deleteAsk">删除</view>
       </view>
     </view>
   </view>
+
+
   <view class="answer_box" wx:if="{{!pageloading}}">
     <view class="answer_none" wx:if="{{false}}">
       老师正在火速赶来，请耐心等待！
     </view>
-    <view class="answer_item">
+
+    <view class="answer_item" wx:for="{{answers}}" wx:key="answerkey" wx:for-item="answer" wx:for-index="answeridx">
       <view class="answer_info">
         <view class="answerer">
-          <image class="user_avatar" src="../../images/bee.png"></image>
+          <block wx:if="{{answer.teacher_id || answer.student_id}}">
+          <image class="user_avatar" src="{{answer.teacher_imgurl || answer.student_imgurl}}" wx:if="{{answer.teacher_imgurl || answer. student_imgurl}}"></image>
+          <image class="user_avatar" src="../../images/bee.png" wx:if="{{!(answer.teacher_imgurl || answer.student_imgurl)}}"></image>
           <view class="user_name">
-             雯雯老师
+             {{answer.teacher_nickname || answer.student_nickname}}
           </view>
+          </block>
         </view>
         <view class="answer_time">
-          6月11日 15:20
+          {{answer.answered_time}}
         </view>
       </view>
       <view class="answer_cont">
-        <view class="ask_text">由于明显的客户端错误（例如，格式错误的请求语法，太大的大小，无效的请求消息或欺骗性路由请求），服务器不能或不会处理该请求。</view>
+        <view class="ask_text">{{answer.answer_text}}</view>
         <view class="ask_imgs">
-          <image src="../../images/img-placeholder.png"></image>
-          <image src="../../images/img-placeholder.png"></image>
-          <image src="../../images/img-placeholder.png"></image>
+          <block wx:for="{{answer.imgs}}" wx:key="answerimg" wx:for-item="answerimgurl" wx:for-index="answerimgidx">
+            <image src="{{url}}/{{answerimgurl}}" bind:tap="answerPreviewImgs" data-parentindex="{{answeridx}}" id="{{answerimgidx}}"></image>
+          </block>
         </view>
         <view class="ask_voice">
           <view class="voice_cont">
@@ -61,6 +67,7 @@
         </view>
       </view>
     </view>
+
     <view class="answer_grate" wx:if="{{true}}">
       <view class="not_understand">
         <image src="../../images/feedback-no-border.png"></image>
@@ -73,6 +80,7 @@
     </view>
   </view>
 </view>
+
 
 <!-- 登录授权过期提示 -->
 <view class="mask_tip"  wx:if="{{auth_mask}}">
