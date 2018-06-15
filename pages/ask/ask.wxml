@@ -77,5 +77,22 @@
   </view>
 </view>
 
+<!-- 提交成功引导 -->
+<view class="mask_tip"  wx:if="{{submit_ok_mask}}">
+  <view class="mask_bg">
+  </view>
+  <view class="tip_box">
+    <view class="tip_wrap">
+      <view class="tip_title">
+      提交成功
+      </view>
+      <view class="tip_text">
+      请到“首页-我的提问”里查看老师的回答
+      </view>
+      <view class="tip_btn" bind:tap="goIndex">我知道了</view>
+    </view>
+  </view>
+</view>
+
 
 

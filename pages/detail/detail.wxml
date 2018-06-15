@@ -10,10 +10,10 @@
           <image src="{{url}}/{{imgurl}}" bind:tap="askPreviewImgs" id="{{idx}}"></image>
         </block>
       </view>
-      <view class="ask_voice" bind:tap="{{ask.recordplaying?'':'playVoice'}}" wx:if="{{ask.voice_url}}">
+      <view class="ask_voice" bind:tap="{{ask.recordplaying?'':'askPlayVoice'}}" wx:if="{{ask.voice_url}}">
         <view class="voice_cont">
-          <image class="wave_img" src="../../images/voice_wave_green.png" wx:if="{{!ask.recordplaying}}" background-size="cover"></image>
-          <image class="wave_img" src="../../images/voice_wave_green.gif" wx:if="{{ask.recordplaying}}" background-size="cover"></image>
+          <image class="wave_img" src="../../images/voice_wave_green.png" wx:if="{{!ask_recordplaying}}" background-size="cover"></image>
+          <image class="wave_img" src="../../images/voice_wave_green.gif" wx:if="{{ask_recordplaying}}" background-size="cover"></image>
           <view class="voice_duration">{{ask.voice_duration}}''</view>
         </view>
         <image class="play_ico" src="../../images/play.png" background-size="cover"></image>
@@ -29,17 +29,15 @@
     </view>
   </view>
 
-
   <view class="answer_box" wx:if="{{!pageloading}}">
-    <view class="answer_none" wx:if="{{false}}">
+    <view class="answer_none" wx:if="{{!ask.be_answered}}">
       老师正在火速赶来，请耐心等待！
     </view>
-
     <view class="answer_item" wx:for="{{answers}}" wx:key="answerkey" wx:for-item="answer" wx:for-index="answeridx">
       <view class="answer_info">
         <view class="answerer">
           <block wx:if="{{answer.teacher_id || answer.student_id}}">
-          <image class="user_avatar" src="{{answer.teacher_imgurl || answer.student_imgurl}}" wx:if="{{answer.teacher_imgurl || answer. student_imgurl}}"></image>
+          <image class="user_avatar" src="{{url}}/{{answer.teacher_imgurl || answer.student_imgurl}}" wx:if="{{answer.teacher_imgurl || answer. student_imgurl}}"></image>
           <image class="user_avatar" src="../../images/bee.png" wx:if="{{!(answer.teacher_imgurl || answer.student_imgurl)}}"></image>
           <view class="user_name">
              {{answer.teacher_nickname || answer.student_nickname}}
@@ -51,30 +49,32 @@
         </view>
       </view>
       <view class="answer_cont">
-        <view class="ask_text">{{answer.answer_text}}</view>
-        <view class="ask_imgs">
+        <view class="ask_text" wx:if="{{answer.answer_text}}">{{answer.answer_text}}</view>
+        <view class="ask_imgs" wx:if="{{answer.imgs}}">
           <block wx:for="{{answer.imgs}}" wx:key="answerimg" wx:for-item="answerimgurl" wx:for-index="answerimgidx">
             <image src="{{url}}/{{answerimgurl}}" bind:tap="answerPreviewImgs" data-parentindex="{{answeridx}}" id="{{answerimgidx}}"></image>
           </block>
         </view>
-        <view class="ask_voice">
+        <view class="ask_voice" wx:if="{{answer.voice_url}}" bind:tap="{{answers_playstatus[answeridx]?'':'answerPlayVoice'}}" id="{{answeridx}}">
           <view class="voice_cont">
-            <image class="wave_img" src="../../images/voice_wave_green.png" wx:if="{{!recordplaying}}" background-size="cover"></image>
-            <image class="wave_img" src="../../images/voice_wave_green.gif" wx:if="{{recordplaying}}" background-size="cover"></image>
-            <view class="voice_duration">{{askvoice_duration}}''</view>
+            <image class="wave_img" src="../../images/voice_wave_green.png" wx:if="{{!answers_playstatus[answeridx]}}" background-size="cover"></image>
+            <image class="wave_img" src="../../images/voice_wave_green.gif" wx:if="{{answers_playstatus[answeridx]}}" background-size="cover"></image>
+            <view class="voice_duration">{{answer.voice_duration}}''</view>
           </view>
           <image class="play_ico" src="../../images/play.png" background-size="cover"></image>
         </view>
       </view>
     </view>
 
-    <view class="answer_grate" wx:if="{{true}}">
-      <view class="not_understand">
-        <image src="../../images/feedback-no-border.png"></image>
+    <view class="answer_grate" wx:if="{{ask.be_answered}}">
+      <view class="not_understand {{grate_value==2?'on':''}}" bind:tap="{{grate_value==2?'':'submitGrate'}}" data-value="2">
+        <image src="../../images/feedback-no-border.png" wx:if="{{!(grate_value==2)}}"></image>
+        <image src="../../images/feedback-no.png" wx:if="{{grate_value==2}}"></image>
         <view>没听懂</view>
       </view>
-      <view class="yes_understand">
-        <image src="../../images/feedback-yes-border.png"></image>
+      <view class="yes_understand {{grate_value==1?'on':''}}" bind:tap="{{grate_value==1?'':'submitGrate'}}" data-value="1">
+        <image src="../../images/feedback-yes-border.png" wx:if="{{!(grate_value==1)}}"></image>
+        <image src="../../images/feedback-yes.png" wx:if="{{grate_value==1}}"></image>
         <view>听懂了</view>
       </view>
     </view>

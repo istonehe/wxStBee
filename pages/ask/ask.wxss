@@ -216,6 +216,12 @@ page {
   justify-content: center;
 }
 
+.tip_title{
+  font-size:40rpx;
+  margin-bottom:20rpx;
+  color:#333;
+}
+
 .tip_text{
   padding:0 40rpx 30rpx 40rpx;
   font-size:34rpx;

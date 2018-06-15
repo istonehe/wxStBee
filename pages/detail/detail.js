@@ -12,54 +12,78 @@ Page({
     url: url,
     pageloading: true,
     auth_mask: false,
-
-    asktext: '',
-    askimgs: [],
-    askrecordfile: '',
-    askvoice_duration: 0,
-    recordplaying: false,
-    be_answered: false,
-    postedtime: '',
-
     ask: {},
     ask_id: 0,
-    answers: []
+    answers: [],
+    ask_recordplaying: false,
+    answers_playstatus: [],
+    grate_value: 0
   },
-  onLoad: function () {
+  onLoad: function (res) {
     let that = this;
-    let ask_id = 21
+    console.log(res)
+    let ask_id = res.aks_id;
+    
     requests.getAskDetailPromise(that, ask_id).then(
       function (data) {
         console.log(data)
 
+        // 载入ask数据
         let ask = data.ask;
+        // 将ask时间转换成相对时间
         ask.postedtime = moment(data.ask.timestamp).add(8, 'hours').fromNow();
-        ask.recordplaying = false;
-
+        
+        // 定义answers数据组
         let answers = [];
+        // 载入answers数据组
+        // 定义answers录音播放状态数据组
+        let answers_playstatus = [];
         let www_answers = data.ask.answers;
         for (let i = 0, n = www_answers.length; i < n; i++) {
           answers[i] = www_answers[i];
           answers[i].answered_time = moment(www_answers[i].timestamp).add(8, 'hours').fromNow();
-          if (www_answers[i].teacher_imgurl){
-            answers[i].teacher_imgurl = url + '/' + www_answers[i].teacher_imgurl;
-          }
-          if (www_answers[i].student_imgurl) {
-            answers[i].student_imgurl = url + '/' + www_answers[i].student_imgurl;
-          }
+          answers_playstatus[i] = false;
         }
 
         that.setData({
           ask: ask,
-          //asktext: data.ask.ask_text,
-          //askimgs: data.ask.imgs,
-          //askrecordfile: url + '/' + data.ask.voice_url,
-          //askvoice_duration: data.ask.voice_duration,
-          //be_answered: data.ask.be_answered,
-          //postedtime: postedtime,
           ask_id: ask_id,
           answers: answers,
+          ask_recordplaying: false,
+          answers_playstatus: answers_playstatus,
           pageloading: false
+        })
+
+        let user_info = wx.getStorageSync('user_info') || [];
+        let beetoken = user_info.token;
+        let student_id = user_info.student_id;
+
+        //获取回答评价值
+        wx.request({
+          url: url + '/v1/student/ask/' + ask_id + '/answergrate',
+          header: {
+            'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
+          },
+          success: function(res){
+            let data = res.data;
+            console.log(data)
+            if (data.code == 4) {
+              that.setData({
+                auth_mask: true
+              });             
+            } else if (data.code == 1) {
+              that.setData({
+                grate_value: data.grate_value
+              })
+            } else {
+              wx.showToast({
+                title: data.message || '服务器开小差了',
+                icon: 'none',
+                duration: 2000
+              });
+             
+            }
+          }
         })
       },
       function (data) {
@@ -79,7 +103,7 @@ Page({
     let imgs = that.data.answers[e.currentTarget.dataset.parentindex].imgs;
     util.previewImgs(imgs, e);
   },
-  playVoice: function () {
+  askPlayVoice: function () {
     let that = this;
     const innerAudioContext = wx.createInnerAudioContext();
     innerAudioContext.src = url + '/' + that.data.ask.voice_url;
@@ -87,21 +111,47 @@ Page({
     innerAudioContext.play();
     innerAudioContext.onPlay(() => {
       console.log('正在播放')
-      let ask = that.data.ask;
-      ask.recordplaying = true;
       that.setData({
-        ask: ask
+        ask_recordplaying: true
       });
     });
     innerAudioContext.onEnded(() => {
       console.log('播放完成')
-      let ask = that.data.ask;
-      ask.recordplaying = false;
       that.setData({
-        ask: ask
+        ask_recordplaying: false
       });
     });
     innerAudioContext.onError((res) =>{
+      console.log('播放错误')
+      console.log(res.errMsg)
+      console.log(res.errCode)
+    })
+  },
+  answerPlayVoice: function (e) {
+    let that = this;
+    console.log(e)
+    let answer_id = e.currentTarget.id;
+    const innerAudioContext = wx.createInnerAudioContext();
+    innerAudioContext.src = url + '/' + that.data.answers[answer_id].voice_url;
+    console.log(url + '/' + that.data.answers[answer_id].voice_url)
+    innerAudioContext.play();
+    innerAudioContext.onPlay(() => {
+      console.log('正在播放')
+      let answers_playstatus = that.data.answers_playstatus;
+      answers_playstatus[answer_id] = true;
+      that.setData({
+        answers_playstatus: answers_playstatus
+      });
+    });
+    innerAudioContext.onEnded(() => {
+      console.log('播放完成')
+      let answers_playstatus = that.data.answers_playstatus;
+      answers_playstatus[answer_id] = false;
+      that.setData({
+        answers_playstatus: answers_playstatus
+      });
+    });
+    innerAudioContext.onError((res) => {
       console.log('播放错误')
       console.log(res.errMsg)
       console.log(res.errCode)
@@ -128,6 +178,46 @@ Page({
           });
         } else if (res.statusCode == 204) {
           console.log('删除成功,这里将来要指向来源界面，例如列表或发布界面')
+        } else {
+          wx.showToast({
+            title: data.message || '服务器开小差了',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      }
+    })
+  },
+  submitGrate: function(e){
+    let that = this;
+    console.log(e.currentTarget)
+    let grate_value = e.currentTarget.dataset.value;
+    //提交回答评价值
+    let user_info = wx.getStorageSync('user_info') || [];
+    let beetoken = user_info.token;
+    let student_id = user_info.student_id;
+    let ask_id = that.data.ask_id;
+    wx.request({
+      url: url + '/v1/student/ask/' + ask_id + '/answergrate',
+      method: 'PUT',
+      header: {
+        'Authorization': 'Basic ' + base64.encode(beetoken + ':x'),
+        'content-type': 'application/json'
+      },
+      data:{
+        grate: grate_value
+      },
+      success: function (res) {
+        let data = res.data;
+        console.log(data)
+        if (data.code == 4) {
+          that.setData({
+            auth_mask: true
+          });
+        } else if (data.code == 1) {
+          that.setData({
+            grate_value: grate_value
+          })
         } else {
           wx.showToast({
             title: data.message || '服务器开小差了',

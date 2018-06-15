@@ -159,7 +159,7 @@ Page({
     let real_times = that.data.real_times;
     if (real_times > 0 || real_times == -1) {
       console.log('yes')
-      wx.navigateTo({
+      wx.reLaunch({
         url: '../ask/ask'
       })
     } else {

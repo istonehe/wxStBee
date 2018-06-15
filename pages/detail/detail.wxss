@@ -222,6 +222,13 @@ page{
   color: #76bc21;
 }
 
+.not_understand.on{
+  border:1px solid #ba5b51;
+}
+
+.yes_understand.on{
+  border:1px solid #76bc21;
+}
 
 
 /* mask 弹窗 */

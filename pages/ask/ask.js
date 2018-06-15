@@ -25,7 +25,8 @@ Page({
     recordtmp: '',
     recordauth_mask: false,
     voice_duration: 0,
-    recordplaying: false
+    recordplaying: false,
+    submit_ok_mask: false
   },
   onLoad: function(){
     // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
@@ -35,7 +36,6 @@ Page({
           wx.authorize({
             scope: 'scope.record',
             success() {
-              
             }
           })
         }
@@ -218,6 +218,16 @@ Page({
     requests.submitAskPromise(that, ask_text, voice_url, voice_duration, img_ids).then(
       function(data){
         console.log(data)
+        if(data.code == 1){
+          
+          that.setData({
+            asktext: '',
+            askimgs: [],
+            recordfile: '',
+            voice_duration: 0,
+            submit_ok_mask: true
+          })
+        }
       },
       function(data){
         console.log(data)
@@ -237,6 +247,11 @@ Page({
     });
     that.setData({
       auth_mask: false
+    })
+  },
+  goIndex: function(){
+    wx.redirectTo({
+      url: '../index/index'
     })
   }
 
