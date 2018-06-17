@@ -1,0 +1,98 @@
+.container {
+  font-size: 34rpx;
+}
+
+.poster {
+  width: 100%;
+}
+
+.poster image {
+  width: 750rpx;
+  height: 270rpx;
+  display: block;
+}
+
+.member_info {
+  margin-top: 100rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.info_item {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 100rpx;
+}
+
+.item_title {
+  color: #aaa;
+  margin-bottom: 40rpx;
+}
+
+.item_cont {
+  color: #666;
+}
+
+.item_cont text {
+  color: #60b657;
+  font-size:40rpx;
+}
+
+/* mask 弹窗 */
+.mask_tip{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mask_bg{
+  background: #000;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.tip_box{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.tip_wrap{
+  width: 480rpx;
+  margin: 40% auto;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 60rpx 20rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tip_text{
+  padding:0 40rpx 30rpx 40rpx;
+  font-size:34rpx;
+  text-align: center;
+  color: #888;
+}
+
+.tip_btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 30rpx;
+  width:220rpx;
+  height:90rpx;
+  background:#60b657;
+  color:#fff;  
+}
+

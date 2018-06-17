@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="poster">
+    <image src="https://api.easymstudy.com/uploads/91be0ecdd86f6b3a315f16780645f1dd.jpg"></image>
+  </view>
+  <view class="member_info">
+    <view class="info_item">
+      <view class="item_title">会员类型</view>
+      <view class="item_cont">{{student.vip_status? 'VIP':'普通'}}</view>
+    </view>
+    <view class="info_item">
+      <view class="item_title">vip有效期</view>
+      <view class="item_cont">{{vip_expire_show}}</view>
+    </view>
+    <view class="info_item">
+      <view class="item_title">vip提问次数</view>
+      <view class="item_cont">还剩 <text>{{ ((student.vip_times == -1) ? '∞' : student.vip_times) || 0}}</text> 次</view>
+    </view>
+    <view class="info_item">
+      <view class="item_title">免费体验次数</view>
+      <view class="item_cont">还剩 <text>{{student.nomal_times}}</text> 次</view>
+    </view>
+  </view>
+
+</view>
+
+<block wx:if="{{auth_mask}}">
+<view class="mask_tip">
+  <view class="mask_bg">
+  </view>
+  <view class="tip_box">
+    <view class="tip_wrap">
+      <view class="tip_text">
+      登录授权已过期，请点击按钮重新授权
+      </view>
+      <view class="tip_btn" bindtap="goLogin">重新登录</view>
+    </view>
+  </view>
+</view>
+</block>

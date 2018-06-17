@@ -1,7 +1,7 @@
 <view class="container">
   <view class="textarea_box">
     <view class="textarea_wrap">
-      <textarea wx:if="{{!recording}}" placeholder="请填写问题(最多200字)" maxlength="200" value="{{asktext}}" class="textarea_cont" bindinput="textInput"></textarea>
+      <textarea wx:if="{{asktext_show}}" placeholder="请填写问题(最多200字)" maxlength="200" value="{{asktext}}" class="textarea_cont" bindinput="textInput"></textarea>
     </view>
   </view>
   <view class="file_box">

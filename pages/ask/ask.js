@@ -18,6 +18,7 @@ Page({
   data: {
     url: url,
     asktext: '',
+    asktext_show: true,
     askimgs: [],
     auth_mask: false,
     recording: false,
@@ -132,7 +133,8 @@ Page({
       }
     })
     that.setData({
-      recording: true
+      recording: true,
+      asktext_show: false
     });
     recorderManager.start(options);
     let startTime = new Date().getTime();
@@ -149,6 +151,7 @@ Page({
     let voice_duration = Math.round((endTime - startTime)/1000)
     that.setData({
       recording: false,
+      asktext_show: true,
       voice_duration: voice_duration
     });
     recorderManager.onStop((res) => {
@@ -225,6 +228,7 @@ Page({
             askimgs: [],
             recordfile: '',
             voice_duration: 0,
+            asktext_show: false,
             submit_ok_mask: true
           })
         }
@@ -250,7 +254,7 @@ Page({
     })
   },
   goIndex: function(){
-    wx.redirectTo({
+    wx.reLaunch({
       url: '../index/index'
     })
   }

@@ -5,7 +5,7 @@
   <view class="ask_box" wx:if="{{!pageloading}}">
     <view class="ask_cont">
       <view class="ask_text" wx:if="{{ask.ask_text}}">{{ask.ask_text}}</view>
-      <view class="ask_imgs" wx:if="{{ask.imgs}}">
+      <view class="ask_imgs" wx:if="{{ask.imgs.length}}">
         <block wx:for="{{ask.imgs}}" wx:key="askimg" wx:for-item="imgurl" wx:for-index="idx">
           <image src="{{url}}/{{imgurl}}" bind:tap="askPreviewImgs" id="{{idx}}"></image>
         </block>
@@ -33,7 +33,7 @@
     <view class="answer_none" wx:if="{{!ask.be_answered}}">
       老师正在火速赶来，请耐心等待！
     </view>
-    <view class="answer_item" wx:for="{{answers}}" wx:key="answerkey" wx:for-item="answer" wx:for-index="answeridx">
+    <view class="answer_item" wx:for="{{answers}}" wx:key="id" wx:for-item="answer" wx:for-index="answeridx">
       <view class="answer_info">
         <view class="answerer">
           <block wx:if="{{answer.teacher_id || answer.student_id}}">
@@ -50,8 +50,8 @@
       </view>
       <view class="answer_cont">
         <view class="ask_text" wx:if="{{answer.answer_text}}">{{answer.answer_text}}</view>
-        <view class="ask_imgs" wx:if="{{answer.imgs}}">
-          <block wx:for="{{answer.imgs}}" wx:key="answerimg" wx:for-item="answerimgurl" wx:for-index="answerimgidx">
+        <view class="ask_imgs" wx:if="{{answer.imgs.length}}">
+          <block wx:for="{{answer.imgs}}" wx:key="*this" wx:for-item="answerimgurl" wx:for-index="answerimgidx">
             <image src="{{url}}/{{answerimgurl}}" bind:tap="answerPreviewImgs" data-parentindex="{{answeridx}}" id="{{answerimgidx}}"></image>
           </block>
         </view>

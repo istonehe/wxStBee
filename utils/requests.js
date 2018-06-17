@@ -20,7 +20,6 @@ function getStudentInfo(that){
     },
     success: res => {
       console.log(res.data)
-      console.log(typeof(res.data))
       if (res.data.code == 4) {
         that.setData({
           hasUserInfo: false,
@@ -28,8 +27,7 @@ function getStudentInfo(that){
         });
       } else if (res.data.code == 1) {
         that.setData({
-          real_times: res.data.real_times,
-          asks_count: res.data.asks_count
+          student: res.data
         });
       } else {
         wx.showToast({
@@ -41,6 +39,47 @@ function getStudentInfo(that){
     }
   })
 }
+
+// 获取用户信息Promise
+function getStudentInfoPromise(that){
+  let user_info = wx.getStorageSync('user_info') || [];
+  let beetoken = user_info.token;
+  let student_id = user_info.student_id;
+  let StudentInfoPromise = new Promise((resolve, reject) => {
+    wx.request({
+      url: url + '/v1/student/' + student_id,
+      header: {
+        'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
+      },
+      data: {
+        school_id: school_id
+      },
+      success: res => {
+        console.log(res.data)
+        let data = res.data;
+        if (res.data.code == 4) {
+          that.setData({
+            hasUserInfo: false,
+            auth_mask: true
+          });
+          reject();
+        } else if (res.data.code == 1) {
+          resolve(data);
+        } else {
+          wx.showToast({
+            title: '服务器开小差，请重试',
+            icon: 'none',
+            duration: 2000
+          });
+          reject();
+        }
+      }
+    })
+  })
+  return StudentInfoPromise;
+}
+
+
 
 // 上传文件Promise
 function upLoadFilePromise(that, tempFilePath){
@@ -131,7 +170,7 @@ function submitAskPromise(that, ask_text, voice_url, voice_duration, img_ids){
   return submitPromise;
 }
 
-// 获取问题详情
+// 获取问题详情Promise
 function getAskDetailPromise(that, ask_id) {
   let user_info = wx.getStorageSync('user_info') || [];
   let beetoken = user_info.token;
@@ -166,11 +205,55 @@ function getAskDetailPromise(that, ask_id) {
   return askDetailPromise;
 }
 
+// 获取问题列表Promise
+function getAskListPromise(that, page, per_page, answered=0){
+  let user_info = wx.getStorageSync('user_info') || [];
+  let beetoken = user_info.token;
+  let student_id = user_info.student_id;
+  let askListPromise = new Promise((resolve, reject) => {
+    wx.request({
+      url: url + '/v1/student/asks',
+      header: {
+        'Authorization': 'Basic ' + base64.encode(beetoken + ':x')
+      },
+      data:{
+        school_id: school_id,
+        page: page,
+        per_page: per_page,
+        answered: answered
+      },
+      success: function (res) {
+        let data = res.data;
+        console.log(data)
+        if (data.code == 4) {
+          that.setData({
+            auth_mask: true
+          });
+          reject();
+        } else if (data.code == 1) {
+          resolve(data);
+        } else {
+          wx.showToast({
+            title: data.message || '服务器开小差了',
+            icon: 'none',
+            duration: 2000
+          });
+          reject();
+        }
+      }
+    })
+  });
+  return askListPromise;
+
+}
+
 module.exports = {
   getStudentInfo: getStudentInfo,
   upLoadFilePromise: upLoadFilePromise,
   submitAskPromise: submitAskPromise,
-  getAskDetailPromise: getAskDetailPromise
+  getAskDetailPromise: getAskDetailPromise,
+  getAskListPromise: getAskListPromise,
+  getStudentInfoPromise: getStudentInfoPromise
 }
 
 

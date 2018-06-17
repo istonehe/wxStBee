@@ -14,25 +14,25 @@
         <text class="userinfo-nickname">点击头像登录</text>
       </block>
       <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
         <text class="userinfo-nickname">{{userInfo.nickName}}</text>
       </block>
     </view>
     <view class="asks_status">
-      <view class="status_item remaining_times">
+      <view class="status_item remaining_times" hover-class="status_item_hover" bind:tap="goMemberInfo">
         <view class="status_title">
           剩余提问
         </view>
         <view class="status_cont">
-          {{ ((real_times == -1) ? '∞' : real_times) || 0}}
+          {{ ((student.real_times == -1) ? '∞' : student.real_times) || 0}}
         </view>
       </view>
-      <view class="status_item my_asks">
+      <view class="status_item my_asks" hover-class="status_item_hover" bind:tap="goAskList">
         <view class="status_title">
           我的提问
         </view>
         <view class="status_cont">
-          {{asks_count || 0}}
+          {{student.asks_count || 0}}
         </view>
       </view>
     </view>

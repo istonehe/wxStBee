@@ -22,7 +22,7 @@ Page({
   onLoad: function (res) {
     let that = this;
     console.log(res)
-    let ask_id = res.aks_id;
+    let ask_id = res.ask_id;
     
     requests.getAskDetailPromise(that, ask_id).then(
       function (data) {

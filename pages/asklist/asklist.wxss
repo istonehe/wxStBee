@@ -1,0 +1,295 @@
+.container {
+  justify-content: flex-start;
+  font-size: 34rpx;
+}
+
+page{
+  background: #f5f5f5;
+}
+
+.pageloading{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pageloading image{
+  width:280rpx;
+  height:280rpx;
+  margin-top:350rpx;
+}
+
+.no_ask{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top:160rpx;
+  width:100%;
+  color:#aaa;
+}
+
+.sort_nav{
+  position:fixed;
+  top:0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width:100%;
+  background:#fff;
+  border-bottom:1px solid #eee;
+}
+
+.answered_status{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width:100%;
+  height:100rpx;
+}
+
+.status_selected{
+  margin-left:40rpx;
+}
+
+.answers_count{
+  margin-right:40rpx;
+  color:#888;
+}
+
+.answers_count text{
+  color:#60b657;
+}
+
+.status_selected{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color:#333;
+}
+
+.arrow_icon{
+  width:36rpx;
+  height:36rpx;
+  margin-left:20rpx;
+}
+
+.status_choice{
+  width:100%;
+}
+
+.status_item{
+  width:710rpx;
+  height:100rpx;  
+  margin-left:40rpx;
+  border-top:1px solid #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color:#888;
+}
+
+.choice_now{
+  width:22rpx;
+  height:22rpx;
+  border-radius: 50%;
+  background: #60b657;
+  margin-right:40rpx;
+}
+
+.ask_list{
+  margin-top:121rpx;
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ask_item{
+  width:710rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  margin-bottom:20rpx;
+}
+
+.ask_item_hover{
+  margin-bottom:16rpx;
+  border:1rpx solid #9dd697;
+}
+
+.ask_cont {
+  box-sizing: border-box;
+  padding: 0 30rpx 30rpx 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.ask_text {
+  margin-top: 30rpx;
+  color: #666;
+}
+
+.ask_imgs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 40rpx;
+}
+
+.ask_imgs image {
+  width: 160rpx;
+  height: 160rpx;
+  margin-right: 20rpx;
+  background:#eee;
+}
+
+.ask_voice {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40rpx;
+  width: 510rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 50rpx;
+  border: 1px solid #60b657;
+  background: #fff;
+  color: #60b657;
+}
+
+.voice_cont{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.wave_img {
+  width: 150rpx;
+  height: 52rpx;
+  display: block;
+  margin: 0 40rpx;
+}
+
+.play_ico{
+  width: 30rpx;
+  height: 30rpx;
+  display: block;
+  margin-right:40rpx;
+}
+
+.ask_info {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 90rpx;
+  line-height: 90rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.ask_time {
+  color: #aaa;
+}
+
+.status_cancel{
+  display: flex;
+  flex-direction:row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ask_cancel{
+  margin-left:30rpx;
+  color:#666;
+}
+
+
+.ask_status {
+  color: #ccc;
+}
+
+.answered {
+  color: #60b657;
+}
+
+.bottom_loading{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20rpx;
+  height:22px;
+}
+
+.bottom_loading image{
+  width:96rpx;
+  height:22rpx;
+}
+
+.bottom_end{
+  color:#aaa;
+  font-size: 30rpx;
+  margin-bottom:20rpx;
+}
+
+/* mask 弹窗 */
+.mask_tip{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mask_bg{
+  background: #000;
+  opacity: .5;
+  width: 100%;
+  height: 100%;
+}
+
+.tip_box{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.tip_wrap{
+  width: 480rpx;
+  margin: 40% auto;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 60rpx 20rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tip_text{
+  padding:0 40rpx 30rpx 40rpx;
+  font-size:34rpx;
+  text-align: center;
+  color: #888;
+}
+
+.tip_btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 30rpx;
+  width:220rpx;
+  height:90rpx;
+  background:#60b657;
+  color:#fff;  
+}
+

@@ -1,0 +1,86 @@
+<view class="container">
+  <view class="sort_nav">
+    <view class="answered_status">
+      <view class="status_selected" bind:tap="{{answered_sort_open?'closeAnswerSortNav':'openAnswerSortNav'}}">
+        <text wx:if="{{answered_sort_value==0}}">全部</text>
+        <text wx:if="{{answered_sort_value==1}}">已回答</text>
+        <text wx:if="{{answered_sort_value==2}}">未回答</text>
+        <image class="arrow_icon" wx:if="{{!answered_sort_open}}" src="../../images/dropdown.png"></image>
+        <image class="arrow_icon" wx:if="{{answered_sort_open}}" src="../../images/dropup.png"></image>
+      </view>
+      <view class="answers_count">共<text>{{count}}</text>次提问</view>
+    </view>
+    <view class="status_choice" wx:if="{{answered_sort_open}}">
+      <view class="status_item" data-value="0" bind:tap="toAnsweredSort">
+        <text>全部</text>
+        <view class="choice_now" wx:if="{{answered_sort_value==0}}"></view>
+      </view>
+      <view class="status_item" data-value="1" bind:tap="toAnsweredSort">
+        <text>已回答</text>
+        <view class="choice_now" wx:if="{{answered_sort_value==1}}"></view>
+      </view>
+      <view class="status_item" data-value="2" bind:tap="toAnsweredSort">
+        <text>未回答</text>
+        <view class="choice_now" wx:if="{{answered_sort_value==2}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="pageloading" wx:if="{{pageloading}}">
+    <image src="../../images/page-loading.gif"></image>
+  </view>
+
+  <view class="ask_list" wx:if="{{!pageloading}}">
+    <view class="no_ask" wx:if="{{!asks.length}}">
+      <view>你还没有任何问题，赶快去提问吧</view>
+    </view>
+    <block wx:for="{{asks}}" wx:key="id" wx:for-item="ask" wx:for-index="askidx" >
+    <view class="ask_item" hover-class="ask_item_hover" bind:tap="goAskDetail" id="{{ask.id}}">
+      <view class="ask_cont">
+        <view class="ask_text" wx:if="{{!ask.imgs.length && ask.ask_text}}">{{ask.ask_text}}</view>
+        <view class="ask_imgs" wx:if="{{ask.imgs.length}}">
+          <block wx:for="{{ask.imgs}}" wx:key="askimg" wx:for-item="imgurl" wx:for-index="idx">
+            <image src="{{url}}/{{imgurl}}" id="{{idx}}" lazy-load="true"></image>
+          </block>
+        </view>
+        <view class="ask_voice" wx:if="{{!(ask.ask_text || ask.imgs.length) && ask.voice_url}}">
+          <view class="voice_cont">
+            <image class="wave_img" src="../../images/voice_wave_green.png" background-size="cover"></image>
+            <view class="voice_duration">{{ask.voice_duration}}''</view>
+          </view>
+          <!-- image class="play_ico" src="../../images/play.png" background-size="cover"></image -->
+        </view>
+      </view>
+      <view class="ask_info">
+        <view class="ask_time">{{ask.postedtime}}</view>
+        <view class="status_cancel">
+          <view class="ask_status answered" wx:if="{{ask.be_answered}}">已回答</view>
+          <view class="ask_status" wx:if="{{!ask.be_answered}}">未回答</view>
+        </view>
+      </view>
+    </view>
+    </block>
+  </view>
+  <view class="bottom_loading">
+    <image src="../../images/bottom-loading.gif" background-size="cover" wx:if="{{bottom_loading}}"></image>
+  </view>
+
+  <view class="bottom_end" wx:if="{{!next}}">
+    没有更多了
+  </view>
+
+</view>
+
+<!-- 登录授权过期提示 -->
+<view class="mask_tip"  wx:if="{{auth_mask}}">
+  <view class="mask_bg">
+  </view>
+  <view class="tip_box">
+    <view class="tip_wrap">
+      <view class="tip_text">
+      登录授权已过期，请点击按钮重新授权
+      </view>
+      <view class="tip_btn" bind:tap="goLogin">重新登录</view>
+    </view>
+  </view>
+</view>

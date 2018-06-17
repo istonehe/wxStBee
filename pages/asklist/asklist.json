@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "问题列表",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "light",
+  "backgroundColor": "#999",
+  "onReachBottomDistance": 50
+}

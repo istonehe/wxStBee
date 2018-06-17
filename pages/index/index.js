@@ -14,15 +14,8 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    real_times: 0,
-    asks_count: 0,
+    student: {},
     auth_mask: false
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
   },
   onLoad: function () {
     let that = this
@@ -62,7 +55,7 @@ Page({
       });
     } else if (beetoken){
       //带token 再次运行
-      requests.getStudentInfo(that, beetoken, student_id)
+      requests.getStudentInfo(that)
     }
     
     if (app.globalData.userInfo) {
@@ -91,7 +84,6 @@ Page({
         }
       })
     }
-    
   },
   getUserInfo: function(e) {
     let that = this;
@@ -156,10 +148,10 @@ Page({
   },
   goAsk: function () {
     let that = this;
-    let real_times = that.data.real_times;
+    let real_times = that.data.student.real_times;
     if (real_times > 0 || real_times == -1) {
       console.log('yes')
-      wx.reLaunch({
+      wx.navigateTo({
         url: '../ask/ask'
       })
     } else {
@@ -169,5 +161,16 @@ Page({
         duration: 2000
       })
     }
+  },
+  goAskList: function(){
+    let that = this;
+    wx.navigateTo({
+      url: '../asklist/asklist'
+    })
+  },
+  goMemberInfo: function(){
+    wx.navigateTo({
+      url: '../member/member'
+    })
   }
 })

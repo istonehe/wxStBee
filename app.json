@@ -1,9 +1,10 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/ask/ask",
+    "pages/member/member",
+    "pages/asklist/asklist",
     "pages/detail/detail",
-    "pages/logs/logs"
+    "pages/ask/ask"
   ],
   "window":{
     "backgroundTextStyle":"light",
